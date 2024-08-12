@@ -37,7 +37,7 @@
 
                 if (iframeDoc) {
                     iframeDoc.open();
-                    iframeDoc.write('<script>' + decodedPayload + '<\/script>');
+                    iframeDoc.write('<script>' + decodedPayload + '</script>');
                     iframeDoc.close();
                 } else {
                     console.error('Failed to access iframe document');
